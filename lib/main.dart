@@ -65,7 +65,7 @@ class BodyContainer extends StatelessWidget {
                   borderRadius: BorderRadius.all(const Radius.circular(8.0))),
             ),
             new Image.network(
-                'https://tac-cdn.zhongan.com/wxapp/activity/double_99/top_bg.png')
+                'https://tac-cdn.zhongan.com/wxapp/activity/double_99/top_bg.png'),
           ],
         ),
         padding: EdgeInsets.fromLTRB(10, 20, 20, 0),
