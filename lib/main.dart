@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import './demo.dart';
 
 void main() => runApp(MyApp());
 
@@ -13,7 +14,10 @@ class BodyContainer extends StatelessWidget {
                 new Expanded(
                   child: new RaisedButton(
                     onPressed: () {
-                      print('点击按钮一了');
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Demo()),
+                      );
                     },
                     color: Colors.green,
                     child: Text(
@@ -61,8 +65,7 @@ class BodyContainer extends StatelessWidget {
                   borderRadius: BorderRadius.all(const Radius.circular(8.0))),
             ),
             new Image.network(
-              'https://tac-cdn.zhongan.com/wxapp/activity/double_99/top_bg.png'
-            )
+                'https://tac-cdn.zhongan.com/wxapp/activity/double_99/top_bg.png')
           ],
         ),
         padding: EdgeInsets.fromLTRB(10, 20, 20, 0),
