@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import './demo.dart';
 import './listPage.dart';
+import './topic.dart';
 
 void main() => runApp(MyApp());
 
@@ -45,9 +46,18 @@ class BodyContainer extends StatelessWidget {
                 )),
                 new Expanded(
                   child: new Container(
-                    child: new Text('左二', textAlign: TextAlign.center),
+                    child: new GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => Topic())
+                        );
+                      },
+                      child: new Text('go Topic Page', style: TextStyle(fontSize: 18),),
+                    ),
                     color: Colors.yellow,
                     margin: EdgeInsets.only(left: 20),
+                    padding: EdgeInsets.all(10),
                   ),
                 )
               ],
@@ -70,7 +80,7 @@ class BodyContainer extends StatelessWidget {
                   borderRadius: BorderRadius.all(const Radius.circular(8.0))),
             ),
             new Image.network(
-                'https://tac-cdn.zhongan.com/wxapp/activity/double_99/top_bg.png'),
+                'https://avatars1.githubusercontent.com/u/20128468'),
           ],
         ),
         padding: EdgeInsets.fromLTRB(10, 20, 20, 0),
