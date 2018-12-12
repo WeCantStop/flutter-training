@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 
 import 'dart:async';
-import 'dart:convert';
-
 import './model/topic.dart';
 
 class TopicDetailState extends StatefulWidget {
@@ -20,14 +18,11 @@ class _TopicWidget extends State<TopicDetailState> {
     response = await dio
         .get('https://cnodejs.org/api/v1/topic/5433d5e4e737cbe96dcef312');
 
-    final topic =  TopicModel.fromJson(json.decode(response.data));
-    
-    print(topic);
+    final topic =  TopicModel.fromJson(response.data);
 
-    // print(response.data);
-    // return res;
-
-    // setState(() {});
+    setState(() {
+      authorId = topic.data.authorId;
+    });
   }
 
   @override

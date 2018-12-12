@@ -4,8 +4,8 @@ class TopicModel {
 
   TopicModel({this.success, this.data});
 
-  factory TopicModel.fromJson(Map<String, dynamic> json1) => new TopicModel(
-      data: DataModel.fromJson(json1['data']), success: json1['success']);
+  factory TopicModel.fromJson(Map<String, dynamic> json) => new TopicModel(
+      data: DataModel.fromJson(json['data']), success: json['success']);
 }
 
 class DataModel {

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import './demo.dart';
+import './listPage.dart';
 
 void main() => runApp(MyApp());
 
 // 声明 Home Widget
 class BodyContainer extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) => Container(
         child: new Column(
@@ -21,7 +23,7 @@ class BodyContainer extends StatelessWidget {
                     },
                     color: Colors.green,
                     child: Text(
-                      '按钮一',
+                      'go fetch demo page',
                       style: TextStyle(color: Colors.black, fontSize: 18),
                     ),
                   ),
@@ -33,9 +35,12 @@ class BodyContainer extends StatelessWidget {
                 new Expanded(
                     child: new RaisedButton(
                   onPressed: () {
-                    print('点击了左一');
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => ListPage()),
+                    );
                   },
-                  child: new Text('左一', textAlign: TextAlign.center),
+                  child: new Text('go ListPage', textAlign: TextAlign.center),
                   color: Colors.blue,
                 )),
                 new Expanded(
