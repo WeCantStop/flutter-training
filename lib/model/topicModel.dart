@@ -25,16 +25,18 @@ class Author {
 }
 
 class Data {
+  final String id;
   final String title;
   final Author author;
   final num replyCount;
   final num visitCount;
 
-  Data({this.title, this.author, this.replyCount, this.visitCount});
+  Data({this.title, this.author, this.replyCount, this.visitCount, this.id});
 
   factory Data.fromJson(Map<String, dynamic> json) => new Data(
       title: json['title'],
       author: Author.fromJson(json['author']),
       replyCount: json['reply_count'],
-      visitCount: json['visit_count']);
+      visitCount: json['visit_count'],
+      id: json['id']);
 }

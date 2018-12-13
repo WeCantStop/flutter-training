@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 import 'api/apis.dart';
-import './model/topicModal.dart';
+import './model/topicModel.dart';
+import './topicDetail.dart';
 
 class Topic extends StatefulWidget {
   _Topic createState() => new _Topic();
@@ -53,8 +54,17 @@ class _Topic extends State<Topic> {
     }
   }
 
+  _goTopicDetail(String id) {
+    Navigator.push(context, 
+      new MaterialPageRoute(builder: (BuildContext context){
+        return new TopicDetail(id: id);
+      }
+    ));
+  }
+
   Widget listViewItem(Data data) {
     return new ListTile(
+        onTap: () => _goTopicDetail(data.id),
         leading: new Container(
           child: new Image.network(data.author.avatarUrl, fit: BoxFit.cover),
           width: 50,
