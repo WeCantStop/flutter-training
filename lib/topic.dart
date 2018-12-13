@@ -13,11 +13,13 @@ class _Topic extends State<Topic> {
   String tab = '';
   bool isFetching = false;
   List<Data> data = [];
+  ScrollController _scrollController = new ScrollController();
 
   @override
   void initState() {
     super.initState();
     _getTopics();
+    _scrollListener();
   }
 
   @override
@@ -25,14 +27,30 @@ class _Topic extends State<Topic> {
     super.dispose();
   }
 
-  _getTopics() async {
-    Dio dio = new Dio();
-    Response response = await dio.get(getTopciList + '?limit=20&page=$page');
-    final topics = TopicModel.fromJson(response.data);
-    setState(() {
-      data = topics.data;
+  _scrollListener() {
+    _scrollController.addListener(() {
+      if (_scrollController.position.pixels ==
+          _scrollController.position.maxScrollExtent) {
+        setState(() {
+          page++;
+        });
+        _getTopics();
+      }
     });
-    print('loaded');
+  }
+
+  _getTopics() async {
+    if (!isFetching) {
+      setState(() => isFetching = true);
+      Dio dio = new Dio();
+      Response response = await dio.get(getTopciList + '?limit=20&page=$page');
+      final topics = TopicModel.fromJson(response.data);
+
+      setState(() {
+        data.addAll(topics.data);
+        isFetching = false;
+      });
+    }
   }
 
   Widget listViewItem(Data data) {
@@ -54,16 +72,34 @@ class _Topic extends State<Topic> {
         ));
   }
 
+  Widget _buildFetchingIndicator() {
+    return new Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: new Center(
+        child: new Opacity(
+          opacity: isFetching ? 1.0 : 0.0,
+          child: new CircularProgressIndicator(),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) => new MaterialApp(
       title: 'topic page',
       home: Scaffold(
           appBar: AppBar(
-            title: new Text('CNode'),
+            title: new Text('Topic'),
           ),
           body: ListView.builder(
-            itemCount: data.length,
-            itemBuilder: (BuildContext context, int index) =>
-                listViewItem(data[index]),
+            itemCount: data.length + 1,
+            itemBuilder: (BuildContext context, int index) {
+              if (index == data.length) {
+                return _buildFetchingIndicator();
+              } else {
+                return listViewItem(data[index]);
+              }
+            },
+            controller: _scrollController,
           )));
 }
