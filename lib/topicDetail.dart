@@ -49,7 +49,6 @@ class _TopicDetail extends State<TopicDetail> {
                     return Text("${snapshot.error}");
                   }
 
-                  // return Center(child: CircularProgressIndicator());
                   return new Stack(
                     children: <Widget>[
                       new Padding(
@@ -61,7 +60,7 @@ class _TopicDetail extends State<TopicDetail> {
                       new Padding(
                         padding: new EdgeInsets.fromLTRB(0.0, 35.0, 0.0, 0.0),
                         child: new Center(
-                          child: new Text('正在加载中，莫着急哦~'),
+                          child: new Text('正在玩命加载中~'),
                         ),
                       ),
                     ],

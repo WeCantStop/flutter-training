@@ -1,26 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:dio/dio.dart';
-import 'api/apis.dart';
-import './model/topicModel.dart';
-import './topicDetail.dart';
+import './topicTab.dart';
 
 class Topic extends StatefulWidget {
   _Topic createState() => new _Topic();
 }
 
-class _Topic extends State<Topic> {
-  num page = 1;
-  num limit = 5;
-  String tab = '';
-  bool isFetching = false;
-  List<Data> data = [];
-  ScrollController _scrollController = new ScrollController();
+class _Topic extends State<Topic> with SingleTickerProviderStateMixin {
+  TabController _tabController;
+  List<String> tabBarItems = ['全部', '精华', '分享', '问答', '招聘'];
 
   @override
   void initState() {
     super.initState();
-    _getTopics();
-    _scrollListener();
+    _tabController = new TabController(vsync: this, length: 5);
   }
 
   @override
@@ -28,88 +20,47 @@ class _Topic extends State<Topic> {
     super.dispose();
   }
 
-  _scrollListener() {
-    _scrollController.addListener(() {
-      if (_scrollController.position.pixels ==
-          _scrollController.position.maxScrollExtent) {
-        setState(() {
-          page++;
-        });
-        _getTopics();
-      }
-    });
-  }
-
-  _getTopics() async {
-    if (!isFetching) {
-      setState(() => isFetching = true);
-      Dio dio = new Dio();
-      Response response = await dio.get(getTopciList + '?limit=20&page=$page');
-      final topics = TopicModel.fromJson(response.data);
-
-      setState(() {
-        data.addAll(topics.data);
-        isFetching = false;
-      });
-    }
-  }
-
-  _goTopicDetail(String id) {
-    Navigator.push(context, 
-      new MaterialPageRoute(builder: (BuildContext context){
-        return new TopicDetail(id: id);
-      }
-    ));
-  }
-
-  Widget listViewItem(Data data) {
-    return new ListTile(
-        onTap: () => _goTopicDetail(data.id),
-        leading: new Container(
-          child: new Image.network(data.author.avatarUrl, fit: BoxFit.cover),
-          width: 50,
-          height: 50,
+  Widget _topTabBar() {
+    return new TabBar(
+      tabs: <Widget>[
+        new Tab(
+          text: '全部',
         ),
-        trailing: new Icon(Icons.keyboard_arrow_right),
-        title: new Text(
-          data.title,
-          overflow: TextOverflow.ellipsis,
-          maxLines: 2,
+        new Tab(
+          text: '精华',
         ),
-        subtitle: new Container(
-          child: new Text('作者: ${data.author.loginName}'),
-          padding: EdgeInsets.only(top: 4),
-        ));
-  }
-
-  Widget _buildFetchingIndicator() {
-    return new Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: new Center(
-        child: new Opacity(
-          opacity: isFetching ? 1.0 : 0.0,
-          child: new CircularProgressIndicator(),
+        new Tab(
+          text: '分享',
         ),
-      ),
+        new Tab(
+          text: '问答',
+        ),
+        new Tab(
+          text: '招聘',
+        ),
+      ],
+      controller: _tabController,
     );
   }
 
   @override
-  Widget build(BuildContext context) => new MaterialApp(
-      title: 'topic page',
-      home: Scaffold(
-          appBar: AppBar(
-            title: new Text('Topic'),
-          ),
-          body: ListView.builder(
-            itemCount: data.length + 1,
-            itemBuilder: (BuildContext context, int index) {
-              if (index == data.length) {
-                return _buildFetchingIndicator();
-              } else {
-                return listViewItem(data[index]);
-              }
-            },
-            controller: _scrollController,
-          )));
+  Widget build(BuildContext context) {
+    return new MaterialApp(
+        title: 'topic page',
+        home: Scaffold(
+            appBar: AppBar(
+              title: new Text('Topic'),
+              bottom: _topTabBar(),
+            ),
+            body: new TabBarView(
+              controller: _tabController,
+              children: <Widget>[
+                new TopicTab(tab: ''),
+                new TopicTab(tab: 'good'),
+                new TopicTab(tab: 'share'),
+                new TopicTab(tab: 'ask'),
+                new TopicTab(tab: 'job'),
+              ],
+            )));
+  }
 }
