@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import './topicTab.dart';
+import './topicDetail.dart';
 
 class Topic extends StatefulWidget {
   _Topic createState() => new _Topic();
@@ -18,6 +19,13 @@ class _Topic extends State<Topic> with SingleTickerProviderStateMixin {
   @override
   void dispose() {
     super.dispose();
+  }
+
+  void _goDetail(id) {
+    Navigator.push(context,
+        new MaterialPageRoute(builder: (BuildContext context) {
+      return new TopicDetail(id: id);
+    }));
   }
 
   Widget _topTabBar() {
@@ -55,11 +63,11 @@ class _Topic extends State<Topic> with SingleTickerProviderStateMixin {
             body: new TabBarView(
               controller: _tabController,
               children: <Widget>[
-                new TopicTab(tab: ''),
-                new TopicTab(tab: 'good'),
-                new TopicTab(tab: 'share'),
-                new TopicTab(tab: 'ask'),
-                new TopicTab(tab: 'job'),
+                new TopicTab(tab: '', callback: (id) => _goDetail(id)),
+                new TopicTab(tab: 'good', callback: (id) => _goDetail(id)),
+                new TopicTab(tab: 'share', callback: (id) => _goDetail(id)),
+                new TopicTab(tab: 'ask', callback: (id) => _goDetail(id)),
+                new TopicTab(tab: 'job', callback: (id) => _goDetail(id)),
               ],
             )));
   }

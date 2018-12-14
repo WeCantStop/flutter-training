@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import './model/topicModel.dart';
 import 'package:dio/dio.dart';
 import 'api/apis.dart';
-import './topicDetail.dart';
 
 class TopicTab extends StatefulWidget {
+  TopicTab({Key key, this.tab, this.callback}) : super(key: key);
+
   final String tab;
-  TopicTab({this.tab});
+  final callback;
 
   @override
   _TopicTab createState() => new _TopicTab();
@@ -47,10 +48,7 @@ class _TopicTab extends State<TopicTab> with AutomaticKeepAliveClientMixin {
   }
 
   _goTopicDetail(String id) {
-    Navigator.push(context,
-        new MaterialPageRoute(builder: (BuildContext context) {
-      return new TopicDetail(id: id);
-    }));
+    widget.callback(id);
   }
 
   _scrollListener() {
