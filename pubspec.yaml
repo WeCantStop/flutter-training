@@ -19,6 +19,7 @@ dependencies:
   dio: ^1.0.9
   flutter_refresh: ^0.0.2
   flutter_html_textview: "^0.2.6"
+  flutter_webview_plugin: "0.3.0"
 
 dev_dependencies:
   flutter_test:

@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import './demo.dart';
 import './listPage.dart';
 import './topic.dart';
+import './webview.dart';
 
 void main() => runApp(MyApp());
 
 // 声明 Home Widget
 class BodyContainer extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) => Container(
         child: new Column(
@@ -48,12 +48,13 @@ class BodyContainer extends StatelessWidget {
                   child: new Container(
                     child: new GestureDetector(
                       onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => Topic())
-                        );
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => Topic()));
                       },
-                      child: new Text('go Topic Page', style: TextStyle(fontSize: 18),),
+                      child: new Text(
+                        'go Topic Page',
+                        style: TextStyle(fontSize: 18),
+                      ),
                     ),
                     color: Colors.yellow,
                     margin: EdgeInsets.only(left: 20),
@@ -81,6 +82,22 @@ class BodyContainer extends StatelessWidget {
             ),
             new Image.network(
                 'https://avatars1.githubusercontent.com/u/20128468'),
+            new Row(
+              children: <Widget>[
+                new Expanded(
+                  child: new RaisedButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => WebViewPage()));
+                    },
+                    child: new Text('go webview京东'),
+                    color: Colors.green,
+                  ),
+                ),
+              ],
+            ),
           ],
         ),
         padding: EdgeInsets.fromLTRB(10, 20, 20, 0),
