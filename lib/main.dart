@@ -80,8 +80,8 @@ class BodyContainer extends StatelessWidget {
                   color: Colors.white,
                   borderRadius: BorderRadius.all(const Radius.circular(8.0))),
             ),
-            new Image.network(
-                'https://avatars1.githubusercontent.com/u/20128468'),
+            // new Image.network(
+            //     'https://avatars1.githubusercontent.com/u/20128468'),
             new Row(
               children: <Widget>[
                 new Expanded(

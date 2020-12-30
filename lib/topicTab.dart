@@ -79,7 +79,8 @@ class _TopicTab extends State<TopicTab> with AutomaticKeepAliveClientMixin {
     return new ListTile(
         onTap: () => _goTopicDetail(data.id),
         leading: new Container(
-          child: new Image.network(data.author.avatarUrl, fit: BoxFit.cover),
+          // child: Image.network(data.author.avatarUrl, fit: BoxFit.cover),
+          child: Text(data.author.avatarUrl),
           width: 50,
           height: 50,
         ),

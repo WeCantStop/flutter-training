@@ -10,16 +10,16 @@ description: A new Flutter project.
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.0.0-dev.68.0 <3.0.0"
+  sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
-  cupertino_icons: ^0.1.2
+  cupertino_icons: ^1.0.0
   dio: ^1.0.9
   flutter_refresh: ^0.0.2
-  flutter_html_textview: "^0.2.6"
-  flutter_webview_plugin: "0.3.0"
+  # flutter_html_textview: "^0.2.6"
+  webview_flutter: "^1.0.7"
 
 dev_dependencies:
   flutter_test:

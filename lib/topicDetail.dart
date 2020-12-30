@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter_html_textview/flutter_html_textview.dart';
+// import 'package:flutter_html_textview/flutter_html_textview.dart';
 
 import 'api/apis.dart';
 import './model//topicDetailModel.dart';
@@ -44,7 +44,7 @@ class _TopicDetail extends State<TopicDetail> {
                 future: topicDetail,
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
-                    return new HtmlTextView(data: snapshot.data.data.content);
+                    return Text('text');
                   } else if (snapshot.hasError) {
                     return Text("${snapshot.error}");
                   }
